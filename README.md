@@ -1,29 +1,22 @@
-# README #
+# nixt
 
-This README would normally document whatever steps are necessary to get your application up and running.
+> Nuxt.js project
 
-### What is this repository for? ###
+## Build Setup
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+``` bash
+# install dependencies
+$ npm install # Or yarn install
 
-### How do I get set up? ###
+# serve with hot reload at localhost:3000
+$ npm run dev
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+# build for production and launch server
+$ npm run build
+$ npm start
 
-### Contribution guidelines ###
+# generate static project
+$ npm run generate
+```
 
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
