@@ -16,6 +16,7 @@ export default {
 </script>
 <style lang="scss">
 .sidebar_list{
+  padding: 0;
    li {
      list-style: none;
      margin-bottom: 10px;

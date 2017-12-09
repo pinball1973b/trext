@@ -2,48 +2,57 @@
   <section class="container content_page">
     <headerApp></headerApp>
     <div class="app_container">
+      <!--
       <div class="sidebar">
         <sidebarApp></sidebarApp>
       </div>
+    -->
       <div class="main_content">
         <section class="content_section">
           <h2 class="sub_title">{{title.head1}}</h2>
-          <h3 class="sub_title_section">{{title.head2}}</h3>
-          <div class="article_box">
+          <section class="list_box">
+            <div class="list_col" v-for="list in trelloName">
+              <h3 class="sub_title_section">{{list.name}}</h3>
+            </div>
+          </section>
+          <section class="article_box">
             <article class="trello_card" v-for="trello in trellos">
-                <h4><a :href="trello.shortUrl">{{trello.name}}</a></h4>
-                <div class="inner">
-                  <div class="label">
-                    <label class="card_btn_input" :for="'card_'+trello.id">
+              <h4><a :href="trello.shortUrl">{{trello.name}}</a></h4>
+              <div class="inner">
+                <div class="label">
+                  <label class="card_btn_input" :for="'card_'+trello.id">
+                    <span class="label_box" :class="'id_'+trello.idList"></span>
+                  </label>
+                </div>
+                <input class="card_chk" type="checkbox" :id="'card_'+trello.id">
+                <div class="display-none">
+                  <div class="desc">
+                    <div class="desc_inner">
+                      <h5><a :href="trello.shortUrl">{{trello.name}}</a></h5>
                       <span class="label_box" :class="'id_'+trello.idList"></span>
-                    </label>
-                  </div>
-                  <input class="card_chk" type="checkbox" :id="'card_'+trello.id">
-                  <div class="display-none">
-                    <div class="desc">
-                      <div class="desc_inner">
-                        <h5><a :href="trello.shortUrl">{{trello.name}}</a></h5>
-                        <span class="label_box" :class="'id_'+trello.idList"></span>
-                        <div class="desc_text">
-                          {{trello.desc}}
+                      <div class="date">
+                        {{trello.dateLastActivity}}
+                      </div>
+                      <div class="desc_text">
+                        <p>{{trello.desc}}</p>
+                      </div>
+                      <div class="desc_btn_box">
+                        <div class="close_btn">
+                          <label class="card_btn_input" :for="'card_'+trello.id">
+                            閉じる
+                          </label>
                         </div>
-                        <div class="desc_btn_box">
-                          <div class="close_btn">
-                            <label class="card_btn_input" :for="'card_'+trello.id">
-                              閉じる
-                            </label>
-                          </div>
-                          <div class="trello_link">
-                            <a :href="trello.shortUrl">trelloで編集</a>
-                          </div>
+                        <div class="trello_link">
+                          <a :href="trello.shortUrl">trelloで編集</a>
                         </div>
                       </div>
                     </div>
-                    <div class="overlay"></div>
                   </div>
+                  <div class="overlay"></div>
                 </div>
+              </div>
             </article>
-          </div>
+          </section>
         </section>
         <section>
           <h3 class="sub_title_section">{{title.head3}}</h3>
@@ -72,7 +81,7 @@ export default {
   data: function () {
     return {
       title: {
-        head1: '実際に作ってみた',
+        head1: 'trello + Nuxt.js + GitHub Pagesで簡易ブログ',
         head2: 'trello APIを叩いてカード一覧を出す',
         head3: '使ったもの'
       },
@@ -82,14 +91,23 @@ export default {
         {link_text: 'Axios', url: 'https://github.com/axios/axios', text: 'Ajaxに利用'}
       ],
       trellos: [],
+      trelloName: [],
       errors: []
     }
   },
   created () {
-    axios.get(`https://api.trello.com/1/boards/5a12c16cd46c6f47cfc3ddc3/cards/?limit=100&members=true&key=2b2c09becd3934f69ea6e2d4fa53227c&token=d87a523b1f127abc9073c81f2cea05e598fb5f83245790083c9d903cb0eab59c`)
+    axios.get(`https://api.trello.com/1/boards/5a2bc9321100b9a475a98412/cards/?limit=100&members=true&member_fields=fullName&key=2b2c09becd3934f69ea6e2d4fa53227c&token=d87a523b1f127abc9073c81f2cea05e598fb5f83245790083c9d903cb0eab59c`)
       .then(response => {
         // JSON responses are automatically parsed.
         this.trellos = response.data
+      })
+      .catch(e => {
+        this.errors.push(e)
+      })
+    axios.get(`https://trello.com/1/boards/5a2bc9321100b9a475a98412/lists?key=2b2c09becd3934f69ea6e2d4fa53227c&token=d87a523b1f127abc9073c81f2cea05e598fb5f83245790083c9d903cb0eab59c&fields=name`)
+      .then(response => {
+        // JSON responses are automatically parsed.
+        this.trelloName = response.data
       })
       .catch(e => {
         this.errors.push(e)
@@ -106,6 +124,15 @@ export default {
 .display-none {
   display: none;
 }
+.list_box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  .list_col {
+    width: 23%;
+    margin: 1%;
+  }
+}
 .card_chk {
   display: none;
   &:checked {
@@ -118,13 +145,21 @@ export default {
         position: fixed;
         top: 50%;
         left: 50%;
-        width: 600px;
-        height: 400px;
+        width: 800px;
+        height: 600px;
         transform: translate(-50%,-50%);
         border-radius: 10px;
         z-index: 2;
         .desc_inner {
           margin: 10px;
+          .desc_text {
+            height: 430px;
+            overflow: auto;
+            p {
+              width: 100%;
+              white-space: pre-wrap;
+            }
+          }
           .desc_btn_box {
             display: flex;
             width: 80%;
@@ -201,11 +236,11 @@ export default {
   display: flex;
   flex-wrap: wrap;
   .trello_card {
-    width: 31.3%;
+    width: 23%;
+    margin: 1%;
     border: solid 1px #ccc;
     border-radius: 5px;
     padding: 5px;
-    margin: 10px;
     &:hover {
       box-shadow:0px 0px 5px 1px rgba(0,0,0,0.1);
     }
@@ -236,38 +271,39 @@ export default {
       }
     }
     .label_box {
-      width: 60px;
+      width: 120px;
       height: 20px;
       display: block;
       border-radius: 4px;
       padding: 5px;
       font-size: 1em;
-      &.id_5a12c191e2614e6234e06e2e {
+      text-align: center;
+      &.id_5a2bc9719e5bc2cede2657e2 {
         background: #6bbd5b;
         color: #fff;
         &:after {
-          content: "backlog";
+          content: "引越し";
         }
       }
-      &.id_5a12c1b2defa9fb589427483 {
-        background: #daa520;
+      &.id_5a2bc9943d3468be93508719 {
+        background: #6bbd5b;
         color: #fff;
         &:after {
-          content: "in progress";
+          content: "オレオレ開発";
         }
       }
-      &.id_5a12c1dec6ba85cbf8f7b4e8 {
-        background: #248fb2;
+      &.id_5a2bc99fb23990a45249168b {
+        background: #6bbd5b;
         color: #fff;
         &:after {
-          content: "finish";
+          content: "ネタ";
         }
       }
-      &.id_5a12c1ea4b0123d6573da043 {
-        background: #aaa;
+      &.id_5a2bc99fb23990a45249168b {
+        background: #6bbd5b;
         color: #fff;
         &:after {
-          content: "pending";
+          content: "雑記";
         }
       }
     }
@@ -277,6 +313,7 @@ export default {
 .sub_title_section {
   border-bottom: 1px solid #ccc;
   padding: 5px 0;
+  font-size: 1.2em;
 }
 
 .title {

@@ -10,7 +10,6 @@
               <span class="label_box" :class="'id_'+trello.idList"></span>
             </label>
           </div>
-          <input class="card_chk" type="checkbox" :id="'card_'+trello.id">
           <div class="display-none">
             <div class="desc">
               <div class="desc_inner">
@@ -20,11 +19,7 @@
                   {{trello.desc}}
                 </div>
                 <div class="desc_btn_box">
-                  <div class="close_btn">
-                    <label class="card_btn_input" :for="'card_'+trello.id">
-                      閉じる
-                    </label>
-                  </div>
+                  <div class="close_btn">閉じる</div>
                   <div class="trello_link">
                     <a :href="trello.shortUrl">trelloで編集</a>
                   </div>

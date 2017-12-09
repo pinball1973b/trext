@@ -2,7 +2,6 @@ import Vuex from 'vuex'
 
 const store = () => new Vuex.Store({
   state: {
-    title: 'Agenda',
     items: [
       {list: 'Agenda', uri: 'page1'},
       {list: 'Nuxt.jsとは', uri: 'page2'},

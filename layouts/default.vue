@@ -59,7 +59,7 @@ body {
       border-right: #666 solid 1px;
     }
     .main_content {
-      width: 80%;
+      width: 100%;
       height: 100%;
       overflow: auto;
       padding: 20px;
