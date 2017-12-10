@@ -12,16 +12,21 @@
           <h2 class="sub_title">{{title.head1}}</h2>
           <section class="list_box">
             <div class="list_col" v-for="list in trelloName">
-              <h3 class="sub_title_section">{{list.name}}</h3>
+              <div class="narrowing_btn" :class="'cardid_'+list.id" @click="narrowing">
+                {{list.name}}
+              </div>
             </div>
           </section>
           <section class="article_box">
-            <article class="trello_card" v-for="trello in trellos">
+            <article class="trello_card" v-for="trello in trellos"　:class="'cardid_'+trello.idList">
               <h4><a :href="trello.shortUrl">{{trello.name}}</a></h4>
               <div class="inner">
-                <div class="label">
+                <div class="label label_head">
                   <label class="card_btn_input" :for="'card_'+trello.id">
-                    <span class="label_box" :class="'id_'+trello.idList"></span>
+                    <div class="label_box" :class="'id_'+trello.idList"></div>
+                    <div class="date">
+                      {{trello.dateLastActivity}}
+                    </div>
                   </label>
                 </div>
                 <input class="card_chk" type="checkbox" :id="'card_'+trello.id">
@@ -54,12 +59,6 @@
             </article>
           </section>
         </section>
-        <section>
-          <h3 class="sub_title_section">{{title.head3}}</h3>
-          <ul>
-            <li v-for="link_list in link_lists"><a :href="link_list.url">{{link_list.link_text}}</a> : {{link_list.text}}</li>
-          </ul>
-        </section>
       </div>
     </div>
   </section>
@@ -81,9 +80,7 @@ export default {
   data: function () {
     return {
       title: {
-        head1: 'trello + Nuxt.js + GitHub Pagesで簡易ブログ',
-        head2: 'trello APIを叩いてカード一覧を出す',
-        head3: '使ったもの'
+        head1: 'trello + Nuxt.js + GitHub Pagesで簡易ブログ'
       },
       link_lists: [
         {link_text: 'Nuxt.js', url: 'https://ja.nuxtjs.org/', text: 'フレームワーク'},
@@ -114,7 +111,9 @@ export default {
       })
   },
   methods: {
-
+    narrowing: function () {
+      console.log(event)
+    }
   }
 }
 </script>
@@ -128,9 +127,23 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  width: 600px;
   .list_col {
     width: 23%;
     margin: 1%;
+    text-align: center;
+    .narrowing_btn {
+      color: #fff;
+      background: #6bbd5b;
+      font-size: 1em;
+      border-radius: 4px;
+      padding: 5px;
+      border-bottom: 2px solid #448437;
+      border-right: 2px solid #448437;
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
 }
 .card_chk {
@@ -151,9 +164,9 @@ export default {
         border-radius: 10px;
         z-index: 2;
         .desc_inner {
-          margin: 10px;
+          margin: 20px;
           .desc_text {
-            height: 430px;
+            height: 400px;
             overflow: auto;
             p {
               width: 100%;
@@ -261,11 +274,15 @@ export default {
         width: 100%;
         height: 40px;
         label{
-          display: block;
+          display: flex;
+          justify-content: space-between;
           width: 100%;
           height: 100%;
           &:hover {
             cursor: pointer;
+          }
+          .date {
+            color: #999;
           }
         }
       }
@@ -299,7 +316,7 @@ export default {
           content: "ネタ";
         }
       }
-      &.id_5a2bc99fb23990a45249168b {
+      &.id_5a2bc9a74258f945d1b25598 {
         background: #6bbd5b;
         color: #fff;
         &:after {
