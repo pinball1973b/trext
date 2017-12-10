@@ -22,12 +22,14 @@
               <h4><a :href="trello.shortUrl">{{trello.name}}</a></h4>
               <div class="inner">
                 <div class="label label_head">
-                  <label class="card_btn_input" :for="'card_'+trello.id">
-                    <div class="label_box" :class="'id_'+trello.idList"></div>
-                    <div class="date">
-                      {{trello.dateLastActivity}}
-                    </div>
-                  </label>
+                  <a :href="'#article_'+trello.id" class="label_btn">
+                    <label class="card_btn_input" :for="'card_'+trello.id">
+                      <div class="label_box" :class="'id_'+trello.idList"></div>
+                      <div class="date">
+                        {{trello.dateLastActivity}}
+                      </div>
+                    </label>
+                  </a>
                 </div>
                 <input class="card_chk" type="checkbox" :id="'card_'+trello.id">
                 <div class="display-none">
@@ -43,9 +45,9 @@
                       </div>
                       <div class="desc_btn_box">
                         <div class="close_btn">
-                          <label class="card_btn_input" :for="'card_'+trello.id">
+                            <label class="card_btn_input" :for="'card_'+trello.id">
                             閉じる
-                          </label>
+                            </label>
                         </div>
                         <div class="trello_link">
                           <a :href="trello.shortUrl">trelloで編集</a>
@@ -112,7 +114,7 @@ export default {
   },
   methods: {
     narrowing: function () {
-      console.log(event)
+      console.log(event.target)
     }
   }
 }
