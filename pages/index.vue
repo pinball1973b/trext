@@ -1,6 +1,6 @@
 <template>
   <section class="container content_page">
-    <headerApp></headerApp>
+    <headerApp/>
     <div class="app_container">
       <!--
       <div class="sidebar">

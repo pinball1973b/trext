@@ -4,7 +4,6 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 const _39314d54 = () => import('../pages/index.vue' /* webpackChunkName: "pages/index" */).then(m => m.default || m)
-const _20a190ac = () => import('../pages/parts/trelloApp.vue' /* webpackChunkName: "pages/parts/trelloApp" */).then(m => m.default || m)
 
 
 
@@ -44,11 +43,6 @@ export function createRouter () {
 			path: "/",
 			component: _39314d54,
 			name: "index"
-		},
-		{
-			path: "/parts/trelloApp",
-			component: _20a190ac,
-			name: "parts-trelloApp"
 		}
     ],
     fallback: false

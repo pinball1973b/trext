@@ -1,7 +1,7 @@
 <template>
   <header>
     <div class="logo_box">
-      <LogoHeader></LogoHeader>
+      <LogoHeader/>
     </div>
     <h1>trexut</h1>
   </header>
