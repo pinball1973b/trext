@@ -40,10 +40,39 @@
       </div>
     </div>
   </article>
-
 </template>
 <script>
-module.exports = {
-  prorps: ['trellos']
+import axios from 'axios'
+export default {
+  data: function () {
+    return {
+      trellos: [],
+      trelloName: [],
+      errors: []
+    }
+  },
+  created () {
+    axios.get(`https://api.trello.com/1/boards/5a2bc9321100b9a475a98412/cards/?limit=100&members=true&member_fields=fullName&key=2b2c09becd3934f69ea6e2d4fa53227c&token=d87a523b1f127abc9073c81f2cea05e598fb5f83245790083c9d903cb0eab59c`)
+      .then(response => {
+        // JSON responses are automatically parsed.
+        this.trellos = response.data
+      })
+      .catch(e => {
+        this.errors.push(e)
+      })
+    axios.get(`https://trello.com/1/boards/5a2bc9321100b9a475a98412/lists?key=2b2c09becd3934f69ea6e2d4fa53227c&token=d87a523b1f127abc9073c81f2cea05e598fb5f83245790083c9d903cb0eab59c&fields=name`)
+      .then(response => {
+        // JSON responses are automatically parsed.
+        this.trelloName = response.data
+      })
+      .catch(e => {
+        this.errors.push(e)
+      })
+  },
+  methods: {
+    narrowing: function () {
+      console.log(event.target)
+    }
+  }
 }
 </script>
