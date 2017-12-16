@@ -67,12 +67,10 @@
 </template>
 <script>
 import headerApp from '~/components/headerApp.vue'
-import sidebarApp from '~/components/sidebarApp.vue'
 import axios from 'axios'
 export default {
   components: {
-    headerApp,
-    sidebarApp
+    headerApp
   },
   head: {
     link: [
@@ -84,11 +82,6 @@ export default {
       title: {
         head1: 'trello + Nuxt.js + GitHub Pagesで簡易ブログ'
       },
-      link_lists: [
-        {link_text: 'Nuxt.js', url: 'https://ja.nuxtjs.org/', text: 'フレームワーク'},
-        {link_text: 'trello API', url: 'https://developers.trello.com/', text: 'trelloのAPI'},
-        {link_text: 'Axios', url: 'https://github.com/axios/axios', text: 'Ajaxに利用'}
-      ],
       trellos: [],
       trelloName: [],
       errors: []
