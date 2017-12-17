@@ -9,7 +9,7 @@
     -->
       <div class="main_content">
         <section class="content_section">
-          <h2 class="sub_title">{{title.head1}}</h2>
+          <!--<h2 class="sub_title">{{title.head1}}</h2>-->
           <div class="change_view">
             <div class="btn" @click="viewCard">card</div>
             <div class="btn" @click="viewArticle">article</div>
