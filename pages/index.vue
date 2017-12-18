@@ -9,7 +9,11 @@
     -->
       <div class="main_content">
         <section class="content_section">
-          <h2 class="sub_title">{{title.head1}}</h2>
+          <!--<h2 class="sub_title">{{title.head1}}</h2>-->
+          <div class="change_view">
+            <div class="btn" @click="viewCard">card</div>
+            <div class="btn" @click="viewArticle">article</div>
+          </div>
           <section class="list_box">
             <div class="list_col" v-for="list in trelloName">
               <div class="narrowing_btn" :class="'cardid_'+list.id" @click="narrowing">
@@ -17,19 +21,17 @@
               </div>
             </div>
           </section>
-          <section class="article_box">
-            <article class="trello_card" v-for="trello in trellos"　:class="'cardid_'+trello.idList">
+          <section class="article_box card" v-if="view.card">
+            <article class="trello_card" v-for="trello in trellos"　:class="'cardid_'+trello.idList" :key="'cardid_'+trello.idList">
               <h4><a :href="trello.shortUrl">{{trello.name}}</a></h4>
               <div class="inner">
                 <div class="label label_head">
-                  <a :href="'#article_'+trello.id" class="label_btn">
-                    <label class="card_btn_input" :for="'card_'+trello.id">
-                      <div class="label_box" :class="'id_'+trello.idList"></div>
-                      <div class="date">
-                        {{trello.dateLastActivity}}
-                      </div>
-                    </label>
-                  </a>
+                  <label class="card_btn_input" :for="'card_'+trello.id">
+                    <div class="label_box" :class="'id_'+trello.idList"></div>
+                    <div class="date">
+                      {{trello.dateLastActivity}}
+                    </div>
+                  </label>
                 </div>
                 <input class="card_chk" type="checkbox" :id="'card_'+trello.id">
                 <div class="display-none">
@@ -60,6 +62,35 @@
               </div>
             </article>
           </section>
+
+          <section class="article_box article" v-if="view.article">
+            <article class="trello_card" v-for="trello in trellos"　:class="'cardid_'+trello.idList" :key="'cardid_'+trello.idList">
+              <div class="inner">
+
+                <div class="article_txt">
+                  <div class="desc">
+                    <div class="desc_inner">
+                      <h4><a :href="trello.shortUrl">{{trello.name}}</a></h4>
+                      <span class="label_box" :class="'id_'+trello.idList"></span>
+                      <div class="date">
+                        {{trello.dateLastActivity}}
+                      </div>
+                      <div class="desc_text">
+                        <p>{{trello.desc}}</p>
+                      </div>
+                      <div class="desc_btn_box">
+                        <div class="trello_link">
+                          <a :href="trello.shortUrl">trelloで編集</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="overlay"></div>
+                </div>
+              </div>
+            </article>
+          </section>
+
         </section>
       </div>
     </div>
@@ -81,6 +112,10 @@ export default {
     return {
       title: {
         head1: 'trello + Nuxt.js + GitHub Pagesで簡易ブログ'
+      },
+      view: {
+        card: true,
+        article: false
       },
       trellos: [],
       trelloName: [],
@@ -106,6 +141,14 @@ export default {
       })
   },
   methods: {
+    viewCard: function () {
+      this.view.card = true
+      this.view.article = false
+    },
+    viewArticle: function () {
+      this.view.card = false
+      this.view.article = true
+    },
     narrowing: function () {
       console.log(event.target)
     }
@@ -118,11 +161,22 @@ export default {
 .display-none {
   display: none;
 }
+.change_view {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  .btn {
+    background: #ffa000;
+    color: #fff;
+    margin-right: 10px;
+  }
+}
 .list_box {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  width: 600px;
+  position: relative;
+  width: 900px;
   .list_col {
     width: 23%;
     margin: 1%;
@@ -158,65 +212,9 @@ export default {
         transform: translate(-50%,-50%);
         border-radius: 10px;
         z-index: 2;
-        .desc_inner {
-          margin: 20px;
-          .desc_text {
-            height: 400px;
-            overflow: auto;
-            p {
-              width: 100%;
-              white-space: pre-wrap;
-            }
-          }
-          .desc_btn_box {
-            display: flex;
-            width: 80%;
-            margin: 20px auto;
-            text-align: center;
-            .close_btn {
-              width: 48%;
-              background: #aaa;
-              color: #fff;
-              padding-top: 10px;
-              margin: 1%;
-              label{
-                display: block;
-                width: 100%;
-                height: 100%;
-                &:hover {
-                  cursor: pointer;
-                }
-              }
-            }
-            .trello_link {
-              width: 48%;
-              margin: 1%;
-              a {
-                display: block;
-                width: 100%;
-                height: 100%;
-                background: #248fb2;
-                color: #fff;
-                padding-top: 10px;
-                height: 40px;
-              }
-            }
-          }
-          .label_box {
-            &:after {
-              position: relative;
-              top: -5px;
-            }
-            margin: 10px 0;
-          }
-          h5 {
-            font-size: 1.2em;
-            border-bottom: dotted 1px #ccc;
-            padding: 5px 0;
-            a {
-              display: block;
-            }
-          }
+        .desc_text {
+          height: 400px;
+          overflow: auto;
         }
       }
       .overlay {
@@ -230,6 +228,31 @@ export default {
     }
   }
 }
+.desc_inner {
+  margin: 20px;
+  .desc_text {
+    p {
+      width: 100%;
+      white-space: pre-wrap;
+    }
+  }
+  .label_box {
+    &:after {
+      position: relative;
+      top: -5px;
+    }
+    margin: 10px 0;
+  }
+  h5 {
+    font-size: 1.2em;
+    border-bottom: dotted 1px #ccc;
+    padding: 5px 0;
+    a {
+      display: block;
+    }
+  }
+}
+
 .card_btn {
   label {
     display: block;
@@ -240,7 +263,82 @@ export default {
     padding: 5px;
   }
 }
-.article_box{
+
+.article_box {
+  &.article {
+    display: block;
+    width: 800px;
+    margin: auto;
+    .trello_card {
+      width: 100%;
+      padding: 20px;
+      h4 {
+        margin: 0;
+        padding: 5px;
+        border-bottom: 1px dotted #ccc;
+        font-size: 1em;
+        a {
+          display: block;
+        }
+      }
+      .inner{
+        margin-top: 5px;
+        .label {
+          display: block;
+          margin: 5px 0;
+          width: 100%;
+          height: 40px;
+          label{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            height: 100%;
+            &:hover {
+              cursor: pointer;
+            }
+            .date {
+              color: #999;
+            }
+          }
+        }
+        .desc_btn_box {
+          display: flex;
+          width: 80%;
+          margin: 20px auto;
+          text-align: center;
+          .close_btn {
+            width: 48%;
+            background: #aaa;
+            color: #fff;
+            padding-top: 10px;
+            margin: 1%;
+            label{
+              display: block;
+              width: 100%;
+              height: 100%;
+              &:hover {
+                cursor: pointer;
+              }
+            }
+          }
+          .trello_link {
+            width: 80%;
+            margin: 20px auto;
+            a {
+              display: block;
+              width: 100%;
+              height: 100%;
+              background: #248fb2;
+              color: #fff;
+              padding-top: 10px;
+              height: 40px;
+            }
+          }
+        }
+      }
+    }
+  }
+  &.card {
   display: flex;
   flex-wrap: wrap;
   .trello_card {
@@ -281,43 +379,79 @@ export default {
           }
         }
       }
+      .desc_btn_box {
+        display: flex;
+        width: 80%;
+        margin: 20px auto;
+        text-align: center;
+        .close_btn {
+          width: 48%;
+          background: #aaa;
+          color: #fff;
+          padding-top: 10px;
+          margin: 1%;
+          label{
+            display: block;
+            width: 100%;
+            height: 100%;
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+        .trello_link {
+          width: 48%;
+          margin: 1%;
+          a {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: #248fb2;
+            color: #fff;
+            padding-top: 10px;
+            height: 40px;
+          }
+        }
+      }
     }
-    .label_box {
-      width: 120px;
-      height: 20px;
-      display: block;
-      border-radius: 4px;
-      padding: 5px;
-      font-size: 1em;
-      text-align: center;
-      &.id_5a2bc9719e5bc2cede2657e2 {
-        background: #6bbd5b;
-        color: #fff;
-        &:after {
-          content: "引越し";
-        }
-      }
-      &.id_5a2bc9943d3468be93508719 {
-        background: #6bbd5b;
-        color: #fff;
-        &:after {
-          content: "オレオレ開発";
-        }
-      }
-      &.id_5a2bc99fb23990a45249168b {
-        background: #6bbd5b;
-        color: #fff;
-        &:after {
-          content: "ネタ";
-        }
-      }
-      &.id_5a2bc9a74258f945d1b25598 {
-        background: #6bbd5b;
-        color: #fff;
-        &:after {
-          content: "雑記";
-        }
-      }
+    }
+  }
+}
+
+.label_box {
+  width: 120px;
+  height: 20px;
+  display: block;
+  border-radius: 4px;
+  padding: 5px;
+  font-size: 1em;
+  text-align: center;
+  &.id_5a2bc9719e5bc2cede2657e2 {
+    background: #6bbd5b;
+    color: #fff;
+    &:after {
+      content: "引越し";
+    }
+  }
+  &.id_5a2bc9943d3468be93508719 {
+    background: #6bbd5b;
+    color: #fff;
+    &:after {
+      content: "オレオレ開発";
+    }
+  }
+  &.id_5a2bc99fb23990a45249168b {
+    background: #6bbd5b;
+    color: #fff;
+    &:after {
+      content: "ネタ";
+    }
+  }
+  &.id_5a2bc9a74258f945d1b25598 {
+    background: #6bbd5b;
+    color: #fff;
+    &:after {
+      content: "雑記";
     }
   }
 }
