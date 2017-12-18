@@ -34,7 +34,7 @@ const scrollBehavior = (to, from, savedPosition) => {
 export function createRouter () {
   return new Router({
     mode: 'history',
-    base: '/',
+    base: '/trexut/',
     linkActiveClass: 'nuxt-link-active',
     linkExactActiveClass: 'nuxt-link-exact-active',
     scrollBehavior,

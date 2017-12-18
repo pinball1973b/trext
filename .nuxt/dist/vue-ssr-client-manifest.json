@@ -1,24 +1,24 @@
 {
-  "publicPath": "/_nuxt/",
+  "publicPath": "/trexut/_nuxt/",
   "all": [
     "pages/index.8969ba0158b7debdc052.js.map",
     "pages/index.8969ba0158b7debdc052.js",
     "common.61011bdd1409b72bcf9c.js",
-    "app.e493aebfea02d4221f86.js",
-    "manifest.a362403cdadc63c70db7.js",
+    "app.79f6071c48725b83d5dc.js",
+    "manifest.99c37e838a97712a2f1e.js",
     "LICENSES",
     "layouts/default.0521b3a3e1a797507d0c.js",
     "layouts/default.0521b3a3e1a797507d0c.js.map",
     "common.61011bdd1409b72bcf9c.js.map",
-    "app.e493aebfea02d4221f86.js.map",
-    "manifest.a362403cdadc63c70db7.js.map",
+    "app.79f6071c48725b83d5dc.js.map",
+    "manifest.99c37e838a97712a2f1e.js.map",
     "index.spa.html",
     "index.ssr.html"
   ],
   "initial": [
-    "manifest.a362403cdadc63c70db7.js",
+    "manifest.99c37e838a97712a2f1e.js",
     "common.61011bdd1409b72bcf9c.js",
-    "app.e493aebfea02d4221f86.js"
+    "app.79f6071c48725b83d5dc.js"
   ],
   "async": [
     "pages/index.8969ba0158b7debdc052.js",

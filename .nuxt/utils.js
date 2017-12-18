@@ -81,7 +81,7 @@ export function getContext (context, app) {
     route: (context.to ? context.to : context.route),
     payload: context.payload,
     error: context.error,
-    base: '/',
+    base: '/trexut/',
     env: {}
   }
   const next = context.next
