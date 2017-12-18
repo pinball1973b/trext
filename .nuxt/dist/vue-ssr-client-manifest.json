@@ -1,27 +1,27 @@
 {
   "publicPath": "/trexut/_nuxt/",
   "all": [
-    "pages/index.8969ba0158b7debdc052.js.map",
-    "pages/index.8969ba0158b7debdc052.js",
+    "pages/index.8deb5185a0d7757e6fcd.js.map",
+    "pages/index.8deb5185a0d7757e6fcd.js",
     "common.61011bdd1409b72bcf9c.js",
     "app.79f6071c48725b83d5dc.js",
-    "manifest.99c37e838a97712a2f1e.js",
+    "manifest.b83b18ecc709b47053a8.js",
     "LICENSES",
     "layouts/default.0521b3a3e1a797507d0c.js",
     "layouts/default.0521b3a3e1a797507d0c.js.map",
     "common.61011bdd1409b72bcf9c.js.map",
     "app.79f6071c48725b83d5dc.js.map",
-    "manifest.99c37e838a97712a2f1e.js.map",
+    "manifest.b83b18ecc709b47053a8.js.map",
     "index.spa.html",
     "index.ssr.html"
   ],
   "initial": [
-    "manifest.99c37e838a97712a2f1e.js",
+    "manifest.b83b18ecc709b47053a8.js",
     "common.61011bdd1409b72bcf9c.js",
     "app.79f6071c48725b83d5dc.js"
   ],
   "async": [
-    "pages/index.8969ba0158b7debdc052.js",
+    "pages/index.8deb5185a0d7757e6fcd.js",
     "layouts/default.0521b3a3e1a797507d0c.js"
   ],
   "modules": {

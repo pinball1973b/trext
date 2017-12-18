@@ -10,10 +10,12 @@
       <div class="main_content">
         <section class="content_section">
           <!--<h2 class="sub_title">{{title.head1}}</h2>-->
+
           <div class="change_view">
             <div class="btn" @click="viewCard">card</div>
             <div class="btn" @click="viewArticle">article</div>
           </div>
+          <!--
           <section class="list_box">
             <div class="list_col" v-for="list in trelloName">
               <div class="narrowing_btn" :class="'cardid_'+list.id" @click="narrowing">
@@ -21,6 +23,7 @@
               </div>
             </div>
           </section>
+        -->
           <section class="article_box card" v-if="view.card">
             <article class="trello_card" v-for="trello in trellos"　:class="'cardid_'+trello.idList" :key="'cardid_'+trello.idList">
               <h4><a :href="trello.shortUrl">{{trello.name}}</a></h4>
